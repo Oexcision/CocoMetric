@@ -7,7 +7,6 @@ import { FiBriefcase, FiHome,/* FiSettings,*/ FiUsers } from "react-icons/fi"
 const items = [
   { icon: FiHome, title: "Dashboard", path: "/" },
   { icon: FiBriefcase, title: "Cocomo", path: "/cocomo" },
-  { icon: FiBriefcase, title: "Cocomo Intermedio", path: "/cocomo-middle" },
   { icon: FiBriefcase, title: "Cocomo II", path: "/cocomo-two" },
   //{ icon: FiSettings, title: "User Settings", path: "/settings" },
 ]

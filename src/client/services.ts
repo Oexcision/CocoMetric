@@ -1,21 +1,27 @@
-import { CocomoForm } from "./models";
+import { CocomoForm, CocomoOut } from "./models";
+import varMode from "./utils";
+
 export class MethodsService {
-    public static cocomo(data:CocomoForm){
-        const variableOrg = {   esf:{ a: 2.4, b: 1.05 },
-                                tdes:{ a: 2.5, b: 0.38 }}
+  public static cocomo(data: CocomoForm): CocomoOut {
 
-        const variableEmb = {   esf:{ a: 3.6, b: 1.20 },
-                                tdes:{ a: 2.5, b: 0.32 }}
+    var set = varMode(data.mode);
 
-        const formulaESF = variableEmb.esf.a*(data.kdlc**variableEmb.esf.b) 
-        const formulaTDES = variableEmb.tdes.a*(formulaESF**variableEmb.tdes.b)      
-        const costo =  formulaESF * data.cpm 
-        const trabajadores = formulaESF/formulaTDES
-        const productividad = data.kdlc/formulaESF
+    let esf = set.esf.a * (data.kdlc ** set.esf.b);
 
-        return(
-            {modo:data.mode,esf:formulaESF, tdes:formulaTDES, costo:costo, n:trabajadores, productividad:productividad}
-            //axios.post(`${apiUrl}/login/access-token`, formData)
-        );
-    }
+    esf = data.costDrivers.reduce((acc, value) => acc * value, esf);
+
+    const tdes = set.tdes.a * (esf ** set.tdes.b);
+    const costo = esf * data.cpm;
+    const trabajadores = esf / tdes;
+    const productividad = data.kdlc / esf;
+    const output: CocomoOut = {
+      esf: esf,
+      tdes: tdes,
+      costo: costo,
+      n: trabajadores,
+      productividad: productividad,
+    };
+
+    return output;
+  }
 }
