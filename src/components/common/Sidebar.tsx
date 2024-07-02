@@ -15,7 +15,7 @@ import {
   
   import { FiLogOut, FiMenu } from "react-icons/fi"
   
-  import Logo from "/assets/images/SegurityUI.svg"
+  import Logo from "/assets/images/CocoMetric.svg"
   
   import SidebarItems from "./SidebarItems"
   
