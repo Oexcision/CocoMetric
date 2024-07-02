@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import {
     Box, Container, Text, FormControl, Input, Button, FormLabel,
     Select, VStack, Stack, Accordion, Switch, useDisclosure

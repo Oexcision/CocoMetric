@@ -14,7 +14,6 @@ import {
     Input,
     HStack,
     Checkbox,
-    Text,
 } from "@chakra-ui/react";
 
 interface CpmModalProps {
