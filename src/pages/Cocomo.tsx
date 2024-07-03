@@ -145,7 +145,7 @@ const Cocomo = () => {
                         </Stack>
 
                         <FormControl id="costdrivers">
-                            <Text mb={4}>Cost Drivers</Text>
+                            <Text mb={4} fontWeight="bold">Cost Drivers</Text>
                             <Accordion defaultIndex={[0]} allowMultiple>
                                 {Object.entries(costDrivers).map(([label, options]) => (
                                     <CostDriver
@@ -192,7 +192,7 @@ const Cocomo = () => {
                                 />
                             </FormControl>
                             <FormControl id="costo" mt={4}>
-                                <FormLabel>Costo</FormLabel>
+                                <FormLabel>Cost</FormLabel>
                                 <Input
                                     type="text"
                                     value={estimationResult.costo.toFixed(2)}
@@ -200,7 +200,7 @@ const Cocomo = () => {
                                 />
                             </FormControl>
                             <FormControl id="n" mt={4}>
-                                <FormLabel>N</FormLabel>
+                                <FormLabel>Workers</FormLabel>
                                 <Input
                                     type="text"
                                     value={estimationResult.n.toFixed(2)}
@@ -208,7 +208,7 @@ const Cocomo = () => {
                                 />
                             </FormControl>
                             <FormControl id="productividad" mt={4}>
-                                <FormLabel>Productividad</FormLabel>
+                                <FormLabel>Productivity</FormLabel>
                                 <Input
                                     type="text"
                                     value={estimationResult.productividad.toFixed(2)}

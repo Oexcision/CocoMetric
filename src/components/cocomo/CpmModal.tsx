@@ -131,7 +131,6 @@ const CpmModal = ({ isOpen, onClose, onCalculate }: CpmModalProps) => {
                         <Button type="submit" colorScheme="blue">
                             Calculate
                         </Button>
-                        <Button onClick={onClose}>Close</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
