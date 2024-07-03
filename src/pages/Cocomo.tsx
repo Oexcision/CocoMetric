@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useRef } from 'react';
 import {
     Box, Container, Text, FormControl, Input, Button, FormLabel,
     Select, VStack, Stack, Accordion, Switch, useDisclosure
@@ -18,6 +18,9 @@ const Cocomo = () => {
     const [loading, setLoading] = useState(false);
     const [selectedCostDrivers, setSelectedCostDrivers] = useState<{ [key: string]: string }>({});
     const [estimationResult, setEstimationResult] = useState<CocomoOut | null>(null); // State to store estimation result
+
+    const [isStagesEnabled, setIsStagesEnabled] = useState(false);
+    const resultSectionRef = useRef<HTMLDivElement>(null);
 
     const cpmModal = useDisclosure();
 
@@ -74,6 +77,10 @@ const Cocomo = () => {
             setEstimationResult(result); // Store the result in state
             console.log(result);
             console.log('Selected Cost Drivers Array:', formData.costDrivers);
+             // Deslizamiento suave hacia la sección de resultados
+             setTimeout(() => {
+                resultSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         } catch (error) {
             console.error(error);
         } finally {
@@ -82,6 +89,7 @@ const Cocomo = () => {
     };
 
     const handleSwitchChange = () => {
+        setIsStagesEnabled(!isStagesEnabled);
         cpmModal.onOpen();
     };
 
@@ -91,6 +99,10 @@ const Cocomo = () => {
             ...prevData,
             cpm: total,
         }));
+    };
+
+    const handleModalSubmit = () => {
+        setIsStagesEnabled(false);  // Desmarcamos el switch
     };
 
     return (
@@ -140,7 +152,7 @@ const Cocomo = () => {
 
                             <FormControl>
                                 <FormLabel>Stages?</FormLabel>
-                                <Switch id='stages' onChange={handleSwitchChange} />
+                                <Switch id='stages' onChange={handleSwitchChange} isChecked={isStagesEnabled}/>
                             </FormControl>
                         </Stack>
 
@@ -169,10 +181,11 @@ const Cocomo = () => {
                     isOpen={cpmModal.isOpen}
                     onClose={cpmModal.onClose}
                     onCalculate={handleCpmCalculation} // Pasamos la función de cálculo de CPM
+                    onSubmit={handleModalSubmit}
                 />
 
                 {estimationResult && (
-                    <Box mt={8}>
+                    <Box mt={8} ref={resultSectionRef}>
                         <Text fontSize="xl" mb={4}>Estimation Results</Text>
                         <Box borderWidth="1px" borderRadius="lg" p={4}>
                             <FormControl id="esf">

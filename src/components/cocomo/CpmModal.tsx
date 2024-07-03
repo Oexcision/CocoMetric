@@ -20,6 +20,7 @@ interface CpmModalProps {
     isOpen: boolean;
     onClose: () => void;
     onCalculate: (total: number) => void; // Nuevo prop para pasar el total calculado
+    onSubmit: () => void;
 }
 
 // Definimos una interfaz para describir el tipo de valores esperados
@@ -32,7 +33,7 @@ interface StageValues {
 // Definimos un tipo para las etapas
 type StageType = "requirements" | "analysis" | "design" | "development" | "testing";
 
-const CpmModal = ({ isOpen, onClose, onCalculate }: CpmModalProps) => {
+const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => {
     const [values, setValues] = useState<{
         [key in StageType]: StageValues;
     }>({
@@ -58,7 +59,7 @@ const CpmModal = ({ isOpen, onClose, onCalculate }: CpmModalProps) => {
 
         // Llamamos a la función callback con el total calculado
         onCalculate(total);
-
+        onSubmit();
         // Cerramos el modal
         onClose();
     };
