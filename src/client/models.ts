@@ -29,3 +29,19 @@ export type SetVar = {
   tdes:tdesVar
   
 }
+
+export type StageType = "requirements" | "analysis" | "design" | "development" | "testing";
+
+export interface StageValues {
+    percentage: string;
+    cost: string;
+    disabled: boolean;
+}
+
+export interface StagePercentages {
+    requirements: number;
+    analysis: number;
+    design: number;
+    development: number;
+    testing: number;
+}

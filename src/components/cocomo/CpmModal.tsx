@@ -16,22 +16,16 @@ import {
     Checkbox,
 } from "@chakra-ui/react";
 
+import { StageType, StageValues, StagePercentages } from '../../client/models'
+
 interface CpmModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onCalculate: (total: number) => void; // Nuevo prop para pasar el total calculado
+    onCalculate: (total: number, stagePercentages: StagePercentages) => void;
     onSubmit: () => void;
 }
 
-// Definimos una interfaz para describir el tipo de valores esperados
-interface StageValues {
-    percentage: string;
-    cost: string;
-    disabled: boolean;
-}
 
-// Definimos un tipo para las etapas
-type StageType = "requirements" | "analysis" | "design" | "development" | "testing";
 
 const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => {
     const [values, setValues] = useState<{
@@ -48,17 +42,27 @@ const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => 
         e.preventDefault();
 
         let total = 0;
+        let stagePercentages: StagePercentages = {
+            requirements: 0,
+            analysis: 0,
+            design: 0,
+            development: 0,
+            testing: 0
+        };
 
-        Object.keys(values).forEach((key) => {
-            const stage = values[key as StageType];
+        (Object.keys(values) as StageType[]).forEach((key) => {
+            const stage = values[key];
             if (!stage.disabled && stage.percentage !== "" && stage.cost !== "") {
-                const product = parseFloat(stage.percentage) * parseFloat(stage.cost);
+                const percentage = parseFloat(stage.percentage) / 100; // Convertir a decimal
+                const cost = parseFloat(stage.cost);
+                const product = percentage * cost;
                 total += product;
+                stagePercentages[key] = percentage;
             }
         });
 
         // Llamamos a la función callback con el total calculado
-        onCalculate(total);
+        onCalculate(total, stagePercentages);
         onSubmit();
         // Cerramos el modal
         onClose();
@@ -167,7 +171,7 @@ const RowWithCheckbox = ({
             <FormControl id={`${id}Percentage`} isDisabled={values.disabled}>
                 <FormLabel>{`${label} Percentage`}</FormLabel>
                 <Input
-                    placeholder="Percentage"
+                    placeholder="Example: 10% or 50%"
                     type="number"
                     value={values.percentage}
                     onChange={(e) => handlePercentageChange(e, id)}
@@ -176,7 +180,7 @@ const RowWithCheckbox = ({
             <FormControl id={`${id}Cost`} isDisabled={values.disabled}>
                 <FormLabel>{`${label} Cost`}</FormLabel>
                 <Input
-                    placeholder="Cost"
+                    placeholder="Example: 1000"
                     type="number"
                     value={values.cost}
                     onChange={(e) => handleCostChange(e, id)}

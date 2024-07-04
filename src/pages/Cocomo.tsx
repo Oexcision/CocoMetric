@@ -1,12 +1,19 @@
 import { useState, ChangeEvent, FormEvent, useRef } from 'react';
 import {
     Box, Container, Text, FormControl, Input, Button, FormLabel,
-    Select, VStack, Stack, Accordion, Switch, useDisclosure
+    Select, VStack, Stack, Accordion, Switch, useDisclosure,
+    HStack,
+    Tabs,
+    Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
 } from "@chakra-ui/react";
 import { CocomoForm, CocomoOut } from '../client/models';
 import { MethodsService } from '../client/services';
 import CostDriver from '../components/common/CostDriver';
 import CpmModal from '../components/cocomo/CpmModal';
+import { StagePercentages } from '../client/models';
 
 const Cocomo = () => {
     const [formData, setFormData] = useState<CocomoForm>({
@@ -23,6 +30,14 @@ const Cocomo = () => {
     const resultSectionRef = useRef<HTMLDivElement>(null);
 
     const cpmModal = useDisclosure();
+
+    const [stagePercentages, setStagePercentages] = useState<StagePercentages>({
+        requirements: 0,
+        analysis: 0,
+        design: 0,
+        development: 0,
+        testing: 0
+    });
 
     const costDrivers = {
         PRODUCT: {
@@ -94,11 +109,12 @@ const Cocomo = () => {
     };
 
     // Función para manejar el cálculo del CPM y actualizar el estado en formData
-    const handleCpmCalculation = (total: number) => {
+    const handleCpmCalculation = (total: number, percentages: StagePercentages) => {
         setFormData((prevData) => ({
             ...prevData,
             cpm: total,
         }));
+        setStagePercentages(percentages);
     };
 
     const handleModalSubmit = () => {
@@ -188,46 +204,76 @@ const Cocomo = () => {
                     <Box mt={8} ref={resultSectionRef}>
                         <Text fontSize="xl" mb={4}>Estimation Results</Text>
                         <Box borderWidth="1px" borderRadius="lg" p={4}>
-                            <FormControl id="esf">
-                                <FormLabel>ESF</FormLabel>
-                                <Input
-                                    type="text"
-                                    value={estimationResult.esf.toFixed(2)}
-                                    isReadOnly
-                                />
-                            </FormControl>
-                            <FormControl id="tdes" mt={4}>
-                                <FormLabel>TDES</FormLabel>
-                                <Input
-                                    type="text"
-                                    value={estimationResult.tdes.toFixed(2)}
-                                    isReadOnly
-                                />
-                            </FormControl>
-                            <FormControl id="costo" mt={4}>
-                                <FormLabel>Cost</FormLabel>
-                                <Input
-                                    type="text"
-                                    value={estimationResult.costo.toFixed(2)}
-                                    isReadOnly
-                                />
-                            </FormControl>
-                            <FormControl id="n" mt={4}>
-                                <FormLabel>Workers</FormLabel>
-                                <Input
-                                    type="text"
-                                    value={estimationResult.n.toFixed(2)}
-                                    isReadOnly
-                                />
-                            </FormControl>
-                            <FormControl id="productividad" mt={4}>
-                                <FormLabel>Productivity</FormLabel>
-                                <Input
-                                    type="text"
-                                    value={estimationResult.productividad.toFixed(2)}
-                                    isReadOnly
-                                />
-                            </FormControl>
+                            <VStack>
+                                <HStack>
+                                    <FormControl id="esf" mt={4}>
+                                        <FormLabel>ESF</FormLabel>
+                                        <Input
+                                            type="text"
+                                            value={estimationResult.esf.toFixed(2)}
+                                            isReadOnly
+                                        />
+                                        <Text  mb={4}>Persons-Month</Text>
+                                    </FormControl>
+                                    <FormControl id="tdes" mt={4}>
+                                        <FormLabel>TDES</FormLabel>
+                                        <Input
+                                            type="text"
+                                            value={estimationResult.tdes.toFixed(2)}
+                                            isReadOnly
+                                        />
+                                        <Text  mb={4}>Months</Text>
+                                    </FormControl>
+
+                                    <FormControl id="n" mt={4}>
+                                        <FormLabel>Workers</FormLabel>
+                                        <Input
+                                            type="text"
+                                            value={estimationResult.n.toFixed(2)}
+                                            isReadOnly
+                                        />
+                                        <Text  mb={4}>Persons</Text>
+                                    </FormControl>
+                                    <FormControl id="productividad" mt={4}>
+                                        <FormLabel>Productivity</FormLabel>
+                                        <Input
+                                            type="text"
+                                            value={estimationResult.productividad.toFixed(2)}
+                                            isReadOnly
+                                        />
+                                        <Text  mb={4}>KLDC/Persons-Month</Text>
+                                    </FormControl>
+                                </HStack>
+                                <HStack>
+                                    <FormControl id="costo" mt={4}>
+                                        <FormLabel>Total Cost</FormLabel>
+                                        <Input
+                                            type="text"
+                                            value={estimationResult.costo.toFixed(2)}
+                                            isReadOnly
+                                        />
+                                        <Text  mb={4}>Soles</Text>
+                                    </FormControl>
+
+                                    <Tabs variant='soft-rounded' colorScheme='green'>
+                                        <TabList>
+                                            <Tab>Requirements</Tab>
+                                            <Tab>Analysis</Tab>
+                                            <Tab>Design</Tab>
+                                            <Tab>Development</Tab>
+                                            <Tab>Testing</Tab>
+                                        </TabList>
+                                        <TabPanels>
+                                        <TabPanel>S/. {(estimationResult.costo * stagePercentages.requirements).toFixed(2)}</TabPanel>
+                                        <TabPanel>S/. {(estimationResult.costo * stagePercentages.analysis).toFixed(2)}</TabPanel>
+                                        <TabPanel>S/. {(estimationResult.costo * stagePercentages.design).toFixed(2)}</TabPanel>
+                                        <TabPanel>S/. {(estimationResult.costo * stagePercentages.development).toFixed(2)}</TabPanel>
+                                        <TabPanel>S/. {(estimationResult.costo * stagePercentages.testing).toFixed(2)}</TabPanel>
+                                        </TabPanels>
+                                    </Tabs>
+
+                                </HStack>
+                            </VStack>
                         </Box>
                     </Box>
                 )}
