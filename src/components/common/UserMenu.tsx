@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import { FaUserAstronaut } from "react-icons/fa"
-import { FiLogOut, FiUser } from "react-icons/fi"
+import { FiLogOut, /*FiUser,*/ FiHelpCircle } from "react-icons/fi"
 //import { useAuthentication } from "../../context/AuthContext"
 
 const UserMenu = () => {
@@ -37,8 +37,8 @@ const UserMenu = () => {
             isRound
           />
           <MenuList>
-            <MenuItem icon={<FiUser fontSize="18px" />} as={Link} to="settings">
-              My profile
+            <MenuItem icon={<FiHelpCircle fontSize="18px" />} as={Link} to="help">
+              Help
             </MenuItem>
             <MenuItem
               icon={<FiLogOut fontSize="18px" />}

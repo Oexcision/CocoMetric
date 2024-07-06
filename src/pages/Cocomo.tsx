@@ -2,18 +2,25 @@ import { useState, ChangeEvent, FormEvent, useRef } from 'react';
 import {
     Box, Container, Text, FormControl, Input, Button, FormLabel,
     Select, VStack, Stack, Accordion, Switch, useDisclosure,
-    HStack,
     Tabs,
     Tab,
     TabList,
     TabPanel,
     TabPanels,
+    Image,
 } from "@chakra-ui/react";
 import { CocomoForm, CocomoOut } from '../client/models';
 import { MethodsService } from '../client/services';
 import CostDriver from '../components/common/CostDriver';
 import CpmModal from '../components/cocomo/CpmModal';
 import { StagePercentages } from '../client/models';
+
+import Organico from '/assets/images/Equations/Organico.svg'
+import Moderado from '/assets/images/Equations/Moderado.svg'
+import Embedido from '/assets/images/Equations/Embedido.svg'
+import Costo from '/assets/images/Equations/Costo.svg'
+import Trabajadores from '/assets/images/Equations/Trabajadores.svg'
+import Productividad from '/assets/images/Equations/Productividad.svg'
 
 const Cocomo = () => {
     const [formData, setFormData] = useState<CocomoForm>({
@@ -202,77 +209,66 @@ const Cocomo = () => {
 
                 {estimationResult && (
                     <Box mt={8} ref={resultSectionRef}>
+                        <Text fontSize="xl" mb={4}>Equations</Text>
+                        <VStack spacing={4} align="center">
+                            {formData.mode === 'Organico' && <Image src={Organico} alt="organico" p={3} maxWidth="100%"/>}
+                            {formData.mode === 'Moderado' && <Image src={Moderado} alt="moderado" p={3} maxWidth="100%"/>}
+                            {formData.mode === 'Embedido' && <Image src={Embedido} alt="embedido" p={3} maxWidth="100%"/>}
+                        
+                            <Stack direction={["column", "row"]} spacing={2} justifyContent="center" width="100%">
+                                <Image src={Costo} alt="costo" p={3} maxWidth={["100%", "25%"]} height="auto" />
+                                <Image src={Trabajadores} alt="trabajadores" p={3} maxWidth={["100%", "20%"]} height="auto" />
+                                <Image src={Productividad} alt="productividad" p={3} maxWidth={["100%", "24%"]} height="auto" />
+                            </Stack>
+                        </VStack>
                         <Text fontSize="xl" mb={4}>Estimation Results</Text>
                         <Box borderWidth="1px" borderRadius="lg" p={4}>
-                            <VStack>
-                                <HStack>
-                                    <FormControl id="esf" mt={4}>
+                            <VStack spacing={4} align="stretch">
+                                <Stack direction={["column", "row"]} spacing={4}>
+                                    <FormControl id="esf">
                                         <FormLabel>ESF</FormLabel>
-                                        <Input
-                                            type="text"
-                                            value={estimationResult.esf.toFixed(2)}
-                                            isReadOnly
-                                        />
-                                        <Text  mb={4}>Persons-Month</Text>
+                                        <Input type="text" value={estimationResult.esf.toFixed(2)} isReadOnly />
+                                        <Text mb={2}>Persons-Month</Text>
                                     </FormControl>
-                                    <FormControl id="tdes" mt={4}>
+                                    <FormControl id="tdes">
                                         <FormLabel>TDES</FormLabel>
-                                        <Input
-                                            type="text"
-                                            value={estimationResult.tdes.toFixed(2)}
-                                            isReadOnly
-                                        />
-                                        <Text  mb={4}>Months</Text>
+                                        <Input type="text" value={estimationResult.tdes.toFixed(2)} isReadOnly />
+                                        <Text mb={2}>Months</Text>
                                     </FormControl>
-
-                                    <FormControl id="n" mt={4}>
+                                    </Stack>
+                                    <Stack direction={["column", "row"]} spacing={4}>
+                                    <FormControl id="n">
                                         <FormLabel>Workers</FormLabel>
-                                        <Input
-                                            type="text"
-                                            value={estimationResult.n.toFixed(2)}
-                                            isReadOnly
-                                        />
-                                        <Text  mb={4}>Persons</Text>
+                                        <Input type="text" value={estimationResult.n.toFixed(2)} isReadOnly />
+                                        <Text mb={2}>Persons</Text>
                                     </FormControl>
-                                    <FormControl id="productividad" mt={4}>
+                                    <FormControl id="productividad">
                                         <FormLabel>Productivity</FormLabel>
-                                        <Input
-                                            type="text"
-                                            value={estimationResult.productividad.toFixed(2)}
-                                            isReadOnly
-                                        />
-                                        <Text  mb={4}>KLDC/Persons-Month</Text>
+                                        <Input type="text" value={estimationResult.productividad.toFixed(2)} isReadOnly />
+                                        <Text mb={2}>KLDC/Persons-Month</Text>
                                     </FormControl>
-                                </HStack>
-                                <HStack>
-                                    <FormControl id="costo" mt={4}>
-                                        <FormLabel>Total Cost</FormLabel>
-                                        <Input
-                                            type="text"
-                                            value={estimationResult.costo.toFixed(2)}
-                                            isReadOnly
-                                        />
-                                        <Text  mb={4}>Soles</Text>
-                                    </FormControl>
-
-                                    <Tabs variant='soft-rounded' colorScheme='green'>
-                                        <TabList>
-                                            <Tab>Requirements</Tab>
-                                            <Tab>Analysis</Tab>
-                                            <Tab>Design</Tab>
-                                            <Tab>Development</Tab>
-                                            <Tab>Testing</Tab>
-                                        </TabList>
-                                        <TabPanels>
+                                </Stack>
+                                <FormControl id="costo">
+                                    <FormLabel>Total Cost</FormLabel>
+                                    <Input type="text" value={estimationResult.costo.toFixed(2)} isReadOnly />
+                                    <Text mb={2}>Soles</Text>
+                                </FormControl>
+                                <Tabs variant='soft-rounded' colorScheme='green' isFitted>
+                                    <TabList>
+                                        <Tab>Req</Tab>
+                                        <Tab>Ana</Tab>
+                                        <Tab>Des</Tab>
+                                        <Tab>Dev</Tab>
+                                        <Tab>Test</Tab>
+                                    </TabList>
+                                    <TabPanels>
                                         <TabPanel>S/. {(estimationResult.costo * stagePercentages.requirements).toFixed(2)}</TabPanel>
                                         <TabPanel>S/. {(estimationResult.costo * stagePercentages.analysis).toFixed(2)}</TabPanel>
                                         <TabPanel>S/. {(estimationResult.costo * stagePercentages.design).toFixed(2)}</TabPanel>
                                         <TabPanel>S/. {(estimationResult.costo * stagePercentages.development).toFixed(2)}</TabPanel>
                                         <TabPanel>S/. {(estimationResult.costo * stagePercentages.testing).toFixed(2)}</TabPanel>
-                                        </TabPanels>
-                                    </Tabs>
-
-                                </HStack>
+                                    </TabPanels>
+                                </Tabs>
                             </VStack>
                         </Box>
                     </Box>
