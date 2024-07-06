@@ -8,6 +8,7 @@ import {
     TabPanel,
     TabPanels,
     Image,
+    HStack,
 } from "@chakra-ui/react";
 import { CocomoForm, CocomoOut } from '../client/models';
 import { MethodsService } from '../client/services';
@@ -21,6 +22,7 @@ import Embedido from '/assets/images/Equations/Embedido.svg'
 import Costo from '/assets/images/Equations/Costo.svg'
 import Trabajadores from '/assets/images/Equations/Trabajadores.svg'
 import Productividad from '/assets/images/Equations/Productividad.svg'
+import HelpModal from '../components/cocomo/helpModal';
 
 const Cocomo = () => {
     const [formData, setFormData] = useState<CocomoForm>({
@@ -31,12 +33,13 @@ const Cocomo = () => {
     });
     const [loading, setLoading] = useState(false);
     const [selectedCostDrivers, setSelectedCostDrivers] = useState<{ [key: string]: string }>({});
-    const [estimationResult, setEstimationResult] = useState<CocomoOut | null>(null); // State to store estimation result
+    const [estimationResult, setEstimationResult] = useState<CocomoOut | null>(null);
 
     const [isStagesEnabled, setIsStagesEnabled] = useState(false);
     const resultSectionRef = useRef<HTMLDivElement>(null);
 
     const cpmModal = useDisclosure();
+    const helpModal = useDisclosure();
 
     const [stagePercentages, setStagePercentages] = useState<StagePercentages>({
         requirements: 0,
@@ -125,13 +128,22 @@ const Cocomo = () => {
     };
 
     const handleModalSubmit = () => {
-        setIsStagesEnabled(false);  // Desmarcamos el switch
+        setIsStagesEnabled(false);
     };
 
     return (
         <Container maxW="full">
             <Box pt={12} m={4}>
-                <Text fontSize="2xl" mb={4}>COCOMO</Text>
+                <HStack mb={4}>
+                    <Text fontSize="2xl">COCOMO</Text>
+                    <Button 
+                        colorScheme='teal' 
+                        variant='outline'
+                        onClick={helpModal.onOpen}>
+                        ?
+                    </Button>
+                </HStack>
+                <HelpModal isOpen={helpModal.isOpen} onClose={helpModal.onClose}/>
                 <Text mb={8}>Welcome back, nice to see you again!</Text>
 
                 <Container as="form" onSubmit={handleSubmit} maxW="full">
@@ -203,7 +215,7 @@ const Cocomo = () => {
                 <CpmModal
                     isOpen={cpmModal.isOpen}
                     onClose={cpmModal.onClose}
-                    onCalculate={handleCpmCalculation} // Pasamos la función de cálculo de CPM
+                    onCalculate={handleCpmCalculation}
                     onSubmit={handleModalSubmit}
                 />
 
