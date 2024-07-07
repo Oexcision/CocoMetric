@@ -265,6 +265,9 @@ const Cocomo = () => {
                                     <Input type="text" value={estimationResult.costo.toFixed(2)} isReadOnly />
                                     <Text mb={2}>Soles</Text>
                                 </FormControl>
+                                <Text mt={4}>
+                                    Note: Stage costs is valid only for sum of percentages = , otherwise it will give inconsistent results.
+                                </Text>
                                 <Tabs variant='soft-rounded' colorScheme='green' isFitted>
                                     <TabList>
                                         <Tab>Req</Tab>

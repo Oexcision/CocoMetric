@@ -41,7 +41,8 @@ const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
 
-        let total = 0;
+        let totalWeightedCost = 0;
+        let totalPercentage = 0;
         let stagePercentages: StagePercentages = {
             requirements: 0,
             analysis: 0,
@@ -50,7 +51,8 @@ const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => 
             testing: 0
         };
 
-        (Object.keys(values) as StageType[]).forEach((key) => {
+        {/*
+            (Object.keys(values) as StageType[]).forEach((key) => {
             const stage = values[key];
             if (!stage.disabled && stage.percentage !== "" && stage.cost !== "") {
                 const percentage = parseFloat(stage.percentage) / 100; // Convertir a decimal
@@ -59,10 +61,25 @@ const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => 
                 total += product;
                 stagePercentages[key] = percentage;
             }
+        });*/}
+
+        (Object.keys(values) as StageType[]).forEach((key) => {
+            const stage = values[key];
+            if (!stage.disabled && stage.percentage !== "" && stage.cost !== "") {
+                const percentage = parseFloat(stage.percentage);
+                const cost = parseFloat(stage.cost);
+                totalWeightedCost += percentage * cost;
+                totalPercentage += percentage;
+                stagePercentages[key] = percentage / 100;
+            }
         });
 
+        let  weightedAverageCpm  = totalPercentage  > 0 ? totalWeightedCost / totalPercentage : 0;
+        weightedAverageCpm = Number(weightedAverageCpm.toFixed(2));
+
         // Llamamos a la función callback con el total calculado
-        onCalculate(total, stagePercentages);
+        //onCalculate(total, stagePercentages);
+        onCalculate(weightedAverageCpm, stagePercentages);
         onSubmit();
         // Cerramos el modal
         onClose();
@@ -171,7 +188,7 @@ const RowWithCheckbox = ({
             <FormControl id={`${id}Percentage`} isDisabled={values.disabled}>
                 <FormLabel>{`${label} Percentage`}</FormLabel>
                 <Input
-                    placeholder="Example: 10% or 50%"
+                    placeholder="Example: %: 0.4 or Months: 4 or 4.8"
                     type="number"
                     value={values.percentage}
                     onChange={(e) => handlePercentageChange(e, id)}
