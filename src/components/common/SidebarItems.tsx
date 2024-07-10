@@ -5,7 +5,7 @@ import { FiBriefcase, FiHome, FiHelpCircle, /* FiSettings,*/ FiUsers } from "rea
 
 
 const items = [
-  { icon: FiHome, title: "Dashboard", path: "/" },
+  { icon: FiHome, title: "Home", path: "/" },
   { icon: FiBriefcase, title: "Cocomo", path: "/cocomo" },
   { icon: FiBriefcase, title: "Cocomo II", path: "/cocomo-two" },
   { icon: FiHelpCircle, title: "Help", path: "/help" },

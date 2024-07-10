@@ -144,7 +144,7 @@ const Cocomo = () => {
                     </Button>
                 </HStack>
                 <HelpModal isOpen={helpModal.isOpen} onClose={helpModal.onClose}/>
-                <Text mb={8}>Welcome back, nice to see you again!</Text>
+                <Text mb={8}>Welcome to cocomo intermediate!</Text>
 
                 <Container as="form" onSubmit={handleSubmit} maxW="full">
                     <VStack spacing={8}>
