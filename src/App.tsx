@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard"
 import Cocomo from "./pages/Cocomo"
 import CocomoTwo from "./pages/CocomoTwo"
 import NoPage from "./pages/NoPage"
+import FunctionPoint from "./pages/FunctionPoint"
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
           <Route index element={<Dashboard/>}/>
           <Route path="cocomo" element={<Cocomo/>}/>
           <Route path="cocomo-two" element={<CocomoTwo/>}/>
+          <Route path="function-point" element={<FunctionPoint/>}/>
           <Route path="*" element={<NoPage/>} />
         </Route>
       </Routes>

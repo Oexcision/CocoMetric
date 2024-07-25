@@ -8,6 +8,7 @@ const items = [
   { icon: FiHome, title: "Home", path: "/" },
   { icon: FiBriefcase, title: "Cocomo", path: "/cocomo" },
   { icon: FiBriefcase, title: "Cocomo II", path: "/cocomo-two" },
+  { icon: FiBriefcase, title: "Puntos de Funcion", path: "/function-point" },
   { icon: FiHelpCircle, title: "Help", path: "/help" },
   //{ icon: FiSettings, title: "User Settings", path: "/settings" },
 ]
