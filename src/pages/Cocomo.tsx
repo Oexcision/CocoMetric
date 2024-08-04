@@ -17,12 +17,6 @@ import CostDriver from '../components/common/CostDriver';
 import CpmModal from '../components/cocomo/CpmModal';
 import { StagePercentages } from '../client/models';
 
-import Organico from '/assets/images/Equations/Organico.svg'
-import Moderado from '/assets/images/Equations/Moderado.svg'
-import Embedido from '/assets/images/Equations/Embedido.svg'
-import Costo from '/assets/images/Equations/Costo.svg'
-import Trabajadores from '/assets/images/Equations/Trabajadores.svg'
-import Productividad from '/assets/images/Equations/Productividad.svg'
 import HelpModal from '../components/cocomo/helpModal';
 import EquationsModal from '../components/cocomo/EquationsModal';
 
