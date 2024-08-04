@@ -7,7 +7,6 @@ import {
     TabList,
     TabPanel,
     TabPanels,
-    Image,
     HStack,
     SimpleGrid
 } from "@chakra-ui/react";
