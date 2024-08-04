@@ -14,6 +14,7 @@ import {
   Center,
   Select,
   Container,
+  SimpleGrid,
 } from '@chakra-ui/react';
 
 interface FunctionCounts {
@@ -86,6 +87,7 @@ const FunctionPoint: React.FC = () => {
     });
   };
 
+  
   const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const language = e.target.value;
     setSelectedLanguage(language);
@@ -104,35 +106,39 @@ const FunctionPoint: React.FC = () => {
 
   return (
     <Container maxW="full">
-      <Box pt={12} m={4}>
-        <Center minH="100vh" bg="gray.100" p={4}>
-          <Box bg="white" p={6} rounded="md" shadow="md" w="full" maxW="800px">
-            <VStack spacing={6} align="stretch">
-              <Heading as="h2" size="xl" textAlign="center">Function Point Estimator</Heading>
-              {Object.keys(functionCounts).map(type => (
-                <Box key={type}>
-                  <Heading as="h3" size="md" mb={2}>{type}</Heading>
-                  <Table variant="simple">
-                    <Tbody>
-                      {Object.keys(functionCounts[type]).map(complexity => (
-                        <Tr key={complexity}>
-                          <Th>{complexity}</Th>
-                          <Td>
-                            <Input
-                              type="number"
-                              value={functionCounts[type][complexity]}
-                              onChange={(e) => handleInputChange(e, type, complexity)}
-                            />
-                          </Td>
-                          <Td>{complexityWeights[type][complexity]}</Td>
-                        </Tr>
-                      ))}
-                    </Tbody>
-                  </Table>
-                </Box>
-              ))}
+      <Box pt={1} mx={2}>
+        <Center minH="100vh" bg="gray.100" p={2}>
+          <Box bg="white" p={5} rounded="md" shadow="md" w="full" maxW="1000px">
+            <VStack spacing={4} align="stretch">
+              <Heading as="h2" size="lg" textAlign="center">Function Point Estimator</Heading>
+              <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
+                {Object.keys(functionCounts).map(type => (
+                  <Box key={type}>
+                    <Heading as="h3" size="sm" mb={2}>{type}</Heading>
+                    <Table variant="simple" size="sm">
+                      <Tbody>
+                        {Object.keys(functionCounts[type]).map(complexity => (
+                          <Tr key={complexity}>
+                            <Th>{complexity}</Th>
+                            <Td>
+                              <Input
+                                type="number"
+                                size="sm"
+                                width="80px"
+                                value={functionCounts[type][complexity]}
+                                onChange={(e) => handleInputChange(e, type, complexity)}
+                              />
+                            </Td>
+                            <Td>{complexityWeights[type][complexity]}</Td>
+                          </Tr>
+                        ))}
+                      </Tbody>
+                    </Table>
+                  </Box>
+                ))}
+              </SimpleGrid>
               <Box>
-                <Select value={selectedLanguage} onChange={handleLanguageChange}>
+                <Select value={selectedLanguage} onChange={handleLanguageChange} size="sm">
                   <option value="1">Default (1)</option>
                   {Object.keys(ldcValues).map(language => (
                     <option key={language} value={language}>{`${language} (${ldcValues[language]})`}</option>
@@ -140,7 +146,7 @@ const FunctionPoint: React.FC = () => {
                 </Select>
               </Box>
               <Flex justifyContent="center">
-                <Button colorScheme="blue" onClick={calculateTotalFunctionPoints}>Calculate</Button>
+                <Button colorScheme="blue" size="sm" onClick={calculateTotalFunctionPoints}>Calculate</Button>
               </Flex>
               <Box textAlign="center" fontWeight="bold">
                 Total Function Points: {calculateTotalFunctionPoints()}

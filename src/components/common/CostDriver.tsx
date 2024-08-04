@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
   Box,
   FormLabel,
   Radio,
   RadioGroup,
   Stack,
   Text,
-  AccordionIcon,
   Tooltip,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
 } from "@chakra-ui/react";
 
 type CostDriverProps = {
@@ -53,33 +54,32 @@ const CostDriver = ({ label, options, selectedValues, onChange }: CostDriverProp
   };
 
   return (
-    <Accordion allowToggle>
-      <AccordionItem>
-        <h2>
-          <AccordionButton>
-            <Box as="span" flex="1" textAlign="left">
-              <Text fontWeight="bold" mb={2}>
-                {label}
-              </Text>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-        </h2>
-        <AccordionPanel pb={4}>
-
+    <Box mb={1}>
+      <Text fontWeight="bold" mb={2}>
+        {label}
+      </Text>
+      <Table variant="simple" size="">
+        <Thead>
+          <Tr>
+            <Th>Option</Th>
+            {Object.keys(Object.values(options)[0]).map(level => (
+              <Th key={level}>{level}</Th>
+            ))}
+          </Tr>
+        </Thead>
+        <Tbody>
           {Object.entries(options).map(([optionLabel, values]) => (
-            <div key={optionLabel} style={{ marginBottom: "1em" }}>
-              <FormLabel>{optionLabel}:</FormLabel>
-              <RadioGroup
-                value={localSelectedValues[optionLabel] || ""}
-                onChange={(value) => handleChange(optionLabel, value)}
-              >
-                <Stack spacing={4} direction="row">
-                  {Object.entries(values).map(([level, cost]) => (
-                    <Tooltip
-                      key={level}
-                      label={cost !== null ? cost.toFixed(2) : "N/A"}
-                      isOpen={hoveredValue === `${optionLabel}-${level}`}
+            <Tr key={optionLabel}>
+              <Td><FormLabel>{optionLabel}</FormLabel></Td>
+              {Object.entries(values).map(([level, cost]) => (
+                <Td key={level}>
+                  <Tooltip
+                    label={cost !== null ? cost.toFixed(2) : "N/A"}
+                    isOpen={hoveredValue === `${optionLabel}-${level}`}
+                  >
+                    <RadioGroup
+                      value={localSelectedValues[optionLabel] || ""}
+                      onChange={(value) => handleChange(optionLabel, value)}
                     >
                       <Radio
                         value={String(cost)}
@@ -87,17 +87,17 @@ const CostDriver = ({ label, options, selectedValues, onChange }: CostDriverProp
                         onMouseEnter={() => setHoveredValue(`${optionLabel}-${level}`)}
                         onMouseLeave={() => setHoveredValue(null)}
                       >
-                        {level}
+                        {cost !== null ? level : "N/A"}
                       </Radio>
-                    </Tooltip>
-                  ))}
-                </Stack>
-              </RadioGroup>
-            </div>
+                    </RadioGroup>
+                  </Tooltip>
+                </Td>
+              ))}
+            </Tr>
           ))}
-        </AccordionPanel>
-      </AccordionItem>
-    </Accordion>
+        </Tbody>
+      </Table>
+    </Box>
   );
 };
 

@@ -5,13 +5,27 @@ export type CocomoForm = {
   costDrivers: number[];
 };
 
-
 export type CocomoOut = {
   esf:number;
   tdes:number;
   costo:number;
   n:number;
   productividad:number;
+}
+
+export interface CocomoTwoForm {
+  kdlc: number;
+  cpm: number;
+  costDrivers: number[];
+  scaleDrivers: number[];
+}
+
+export interface CocomoTwoOut {
+  esf: number;
+  tdes: number;
+  costo: number;
+  n: number;
+  productividad: number;
 }
 
 export type esfVar = {

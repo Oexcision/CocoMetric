@@ -1,4 +1,4 @@
-import { CocomoForm, CocomoOut } from "./models";
+import { CocomoForm, CocomoOut, CocomoTwoForm, CocomoTwoOut } from "./models";
 //import { Decimal } from 'decimal.js';
 import varMode from "./utils";
 
@@ -31,4 +31,36 @@ export class MethodsService {
 
     return output;
   }
+
+  static cocomoTwo(formData: CocomoTwoForm): CocomoTwoOut {
+    const { kdlc, costDrivers, scaleDrivers, cpm } = formData;
+
+    // Valores de calibración
+    const A = 2.94; // valor de calibración estándar en COCOMO II
+    const B = 0.91; // valor base para el factor de escala
+
+    // Calcular E (factor de escala)
+    const E = B + 0.01 * scaleDrivers.reduce((sum, driver) => sum + driver, 0);
+    // console.log("E:",E)
+    // Calcular esfuerzo
+    const effort = A * Math.pow(kdlc, E) * costDrivers.reduce((product, driver) => product * driver, 1);
+
+    // Para simplificar, supondremos que TDEV = 2.5 * PM^0.38
+    const E2 = 0.28 + 0.2 * 0.01 * scaleDrivers.reduce((sum, driver) => sum + driver, 0);
+    const duration = 3.67 * Math.pow(effort, E2);
+
+    // Supongamos que la productividad es simplemente KDLC / ESF
+    const productivity = kdlc / effort;
+
+    // Calcular el costo asumiendo un costo por persona-mes
+    const totalCost = effort * cpm;
+
+    return {
+        esf: effort,
+        tdes: duration,
+        n: effort / duration,
+        productividad: productivity,
+        costo: totalCost,
+    };
+}
 }

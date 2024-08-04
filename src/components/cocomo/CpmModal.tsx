@@ -149,11 +149,11 @@ const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => 
                             ))}
                         </VStack>
                     </ModalBody>
-                    <ModalFooter gap={3}>
+                    {/* <ModalFooter gap={3}>
                         <Button type="submit" colorScheme="blue">
                             Calculate
                         </Button>
-                    </ModalFooter>
+                    </ModalFooter> */}
                 </ModalContent>
             </Modal>
         </>
