@@ -1,11 +1,9 @@
 import React, { FormEvent, useState } from "react";
 import {
-    Button,
     Modal,
     ModalBody,
     ModalCloseButton,
     ModalContent,
-    ModalFooter,
     ModalHeader,
     ModalOverlay,
     VStack,
