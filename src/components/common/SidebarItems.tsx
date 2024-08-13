@@ -1,15 +1,16 @@
 import { Box, Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
-import { FiBriefcase, FiHome, FiHelpCircle, /* FiSettings,*/ FiUsers } from "react-icons/fi"
+import { FiBriefcase, FiUsers } from "react-icons/fi"
 
 
 
 const items = [
-  { icon: FiHome, title: "Home", path: "/" },
+  // { icon: FiHome, title: "Home", path: "/" },
   { icon: FiBriefcase, title: "Cocomo", path: "/cocomo" },
   { icon: FiBriefcase, title: "Cocomo II", path: "/cocomo-two" },
   { icon: FiBriefcase, title: "Puntos de Funcion", path: "/function-point" },
-  { icon: FiHelpCircle, title: "Help", path: "/help" },
+  { icon: FiBriefcase, title: "Use Case Point", path: "/use-case-point" },
+  // { icon: FiHelpCircle, title: "Help", path: "/help" },
   //{ icon: FiSettings, title: "User Settings", path: "/settings" },
 ]
 

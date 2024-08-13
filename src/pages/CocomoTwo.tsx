@@ -17,7 +17,7 @@ import CostDriver from '../components/common/CostDriver';
 import CpmModal from '../components/cocomo/CpmModal';
 import { StagePercentages } from '../client/models';
 
-import HelpModal from '../components/cocomo/helpModal';
+import HelpModal from '../components/cocomoTwo/helpModal';
 
 
 const CocomoTwo = () => {
@@ -54,7 +54,7 @@ const CocomoTwo = () => {
             RESL: { VL: 7.07, L: 5.65, N: 4.24, H: 2.83, VH: 1.41, EH: 0.0 },
             TEAM: { VL: 5.48, L: 4.38, N: 3.29, H: 2.19, VH: 1.1, EH: 0.0 },
             PMAT: { VL: 7.8, L: 6.24, N: 4.68, H: 3.12, VH: 1.56, EH: 0.0 },
-        }
+        },
     };    
 
     const costDrivers = {
@@ -65,11 +65,6 @@ const CocomoTwo = () => {
             RUSE: { VL: null, L: 0.95, N: 1.00, H: 1.07, VH: 1.15, EH: 1.24 },
             DOC: { VL: 0.81, L: 0.91, N: 1.00, H: 1.11, VH: 1.23, EH: null },
         },
-        PLATAFORMA: {
-            RTE: { VL: null, L: null, N: 1.00, H: 1.11, VH: 1.29, EH: 1.63 },
-            RMP: { VL: null, L: null, N: 1.00, H: 1.05, VH: 1.17, EH: 1.46 },
-            VMC: { VL: null, L: 0.87, N: 1.00, H: 1.15, VH: 1.30, EH: null },
-        },
         PERSONAL: {
             CAN: { VL: 1.42, L: 1.19, N: 1.00, H: 0.85, VH: 0.71, EH: null },
             EAPL: { VL: 1.22, L: 1.10, N: 1.00, H: 0.88, VH: 0.81, EH: null },
@@ -77,6 +72,11 @@ const CocomoTwo = () => {
             CPER: { VL: 1.29, L: 1.12, N: 1.00, H: 0.90, VH: 0.81, EH: null },
             EPLA: { VL: 1.19, L: 1.09, N: 1.00, H: 0.91, VH: 0.85, EH: null },
             ELP: { VL: 1.20, L: 1.09, N: 1.00, H: 0.91, VH: 0.84, EH: null },
+        },
+        PLATAFORMA: {
+            RTE: { VL: null, L: null, N: 1.00, H: 1.11, VH: 1.29, EH: 1.63 },
+            RMP: { VL: null, L: null, N: 1.00, H: 1.05, VH: 1.17, EH: 1.46 },
+            VMC: { VL: null, L: 0.87, N: 1.00, H: 1.15, VH: 1.30, EH: null },
         },
         PROJECT: {
             UHS: { VL: 1.17, L: 1.09, N: 1.00, H: 0.90, VH: 0.78, EH: null },
@@ -161,7 +161,7 @@ const CocomoTwo = () => {
         <Container maxW="full">
             <Box pt={1} mx={2}>
                 <HStack mb={1}>
-                    <Text fontSize="xl">COCOMO</Text>
+                    <Text fontSize="xl">COCOMO II</Text>
                     <Button 
                         colorScheme='teal' 
                         variant='outline'
@@ -228,7 +228,7 @@ const CocomoTwo = () => {
                             </SimpleGrid>
                         </FormControl>
 
-                        <Button variant="solid" type="submit" isLoading={loading} size="sm" colorScheme="blue">
+                        <Button variant="solid" type="submit" mb={4} isLoading={loading} size="sm" colorScheme="blue">
                             Estimate
                         </Button>
                     </VStack>

@@ -23,9 +23,9 @@ import {
   
   const Sidebar = () => {
     const bgColor = useColorModeValue("ui.light", "ui.dark")
-    const textColor = useColorModeValue("ui.dark", "ui.light")
+    // const textColor = useColorModeValue("ui.dark", "ui.light")
     const secBgColor = useColorModeValue("ui.secondary", "ui.darkSlate")
-    const currentUser = {email:"oscare.c.s@hotmail.com",}
+    // const currentUser = {email:"oscare.c.s@hotmail.com",}
     const { isOpen, onOpen, onClose } = useDisclosure()
   
     //const { logout } = useAuthentication()
@@ -67,17 +67,18 @@ import {
                     <Text ml={2}>Log out</Text>
                   </Flex>
                 </Box>
-                {currentUser?.email && (
+                {/* {currentUser?.email && (
                   <Text color={textColor} noOfLines={2} fontSize="sm" p={2}>
                     Logged in as: {currentUser.email}
                   </Text>
-                )}
+                )} */}
               </Flex>
             </DrawerBody>
           </DrawerContent>
         </Drawer>
   
         {/* Desktop */}
+        
         <Box
           bg={bgColor}
           p={3}
@@ -97,7 +98,7 @@ import {
               <Image src={Logo} alt="Logo" w="180px" maxW="2xs" p={6} />
               <SidebarItems />
             </Box>
-            {currentUser?.email && (
+            {/* {currentUser?.email && (
               <Text
                 color={textColor}
                 noOfLines={2}
@@ -107,7 +108,7 @@ import {
               >
                 Logged in as: {currentUser.email}
               </Text>
-            )}
+            )} */}
           </Flex>
         </Box>
       </>
