@@ -1,11 +1,10 @@
 import { Routes, Route } from "react-router-dom"
 import Layout from "./pages/Layout"
-import Dashboard from "./pages/Dashboard"
 import Cocomo from "./pages/Cocomo"
 import CocomoTwo from "./pages/CocomoTwo"
 import NoPage from "./pages/NoPage"
 import FunctionPoint from "./pages/FunctionPoint"
-import UseCasePoints from "./components/cocomoTwo/UseCasePoints"
+import UseCasePoints from "./pages/UseCasePoints"
 
 function App() {
 
@@ -13,7 +12,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout/>}>
-          <Route index element={<Dashboard/>}/>
+          <Route index element={<Cocomo/>}/>
           <Route path="cocomo" element={<Cocomo/>}/>
           <Route path="cocomo-two" element={<CocomoTwo/>}/>
           <Route path="function-point" element={<FunctionPoint/>}/>
