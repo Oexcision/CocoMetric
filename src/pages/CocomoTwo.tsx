@@ -18,6 +18,7 @@ import CpmModal from '../components/cocomo/CpmModal';
 import { StagePercentages } from '../client/models';
 
 import HelpModal from '../components/cocomoTwo/helpModal';
+import EquationsModal from '../components/cocomo/EquationsModal';
 
 
 const CocomoTwo = () => {
@@ -37,7 +38,7 @@ const CocomoTwo = () => {
 
     const cpmModal = useDisclosure();
     const helpModal = useDisclosure();
-    // const equationModal = useDisclosure();
+    const equationModal = useDisclosure();
 
     const [stagePercentages, setStagePercentages] = useState<StagePercentages>({
         requirements: 0,
@@ -243,7 +244,7 @@ const CocomoTwo = () => {
 
                 {estimationResult && (
                     <Box mt={3} ref={resultSectionRef}>
-                        {/* <HStack mb={1}>
+                        <HStack mb={1}>
                             <Text fontSize="xl">Equations</Text>
                             <Button 
                                 colorScheme='teal' 
@@ -252,8 +253,8 @@ const CocomoTwo = () => {
                                 onClick={equationModal.onOpen}>
                                 ?
                             </Button>
-                        </HStack> */}
-                        {/* <EquationsModal isOpen={equationModal.isOpen} onClose={equationModal.onClose} /> */}
+                        </HStack>
+                        <EquationsModal isOpen={equationModal.isOpen} onClose={equationModal.onClose} mode={'COCOMO-II'} />
 
                         <Text fontSize="xl" mb={4}>Estimation Results</Text>
                         <Box borderWidth="1px" borderRadius="lg" p={2} mb={2}>
