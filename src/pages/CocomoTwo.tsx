@@ -37,7 +37,7 @@ const CocomoTwo = () => {
 
     const cpmModal = useDisclosure();
     const helpModal = useDisclosure();
-    //const equationModal = useDisclosure();
+    // const equationModal = useDisclosure();
 
     const [stagePercentages, setStagePercentages] = useState<StagePercentages>({
         requirements: 0,
