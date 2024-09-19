@@ -19,7 +19,6 @@ import Embedido from '/assets/images/Equations/Embedido.svg';
 import Costo from '/assets/images/Equations/Costo.svg';
 import Trabajadores from '/assets/images/Equations/Trabajadores.svg';
 import Productividad from '/assets/images/Equations/Productividad.svg';
-import ESFCocomoII from '/assets/images/Equations/COCOMO_II.png';
 
 interface EquationsModalProps {
     isOpen: boolean;
@@ -39,7 +38,6 @@ const EquationsModal: React.FC<EquationsModalProps> = ({ isOpen, onClose, mode }
                         {mode === 'Organico' && <Image src={Organico} alt="organico" p={3} maxWidth="100%" />}
                         {mode === 'Moderado' && <Image src={Moderado} alt="moderado" p={3} maxWidth="100%" />}
                         {mode === 'Embedido' && <Image src={Embedido} alt="embedido" p={3} maxWidth="100%" />}
-                        {mode === 'COCOMO-II' && <Image src={ESFCocomoII} alt="embedido" p={3} maxWidth="100%" />}
                         
                         <Stack direction={["column", "row"]} spacing={2} justifyContent="center" width="100%">
                             <Image src={Costo} alt="costo" p={3} maxWidth={["100%", "25%"]} height="auto" />

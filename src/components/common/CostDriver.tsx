@@ -28,7 +28,7 @@ const CostDriver = ({ label, options, selectedValues, onChange }: CostDriverProp
   useEffect(() => {
     const defaultValues = Object.keys(options).reduce((acc, optionLabel) => {
       if (!selectedValues[optionLabel]) {
-        const defaultOption = Object.entries(options[optionLabel]).find(([level, cost]) => level === "N" && cost === 1);
+        const defaultOption = Object.entries(options[optionLabel]).find(([level]) => level === "N");
         if (defaultOption) {
           acc[optionLabel] = String(defaultOption[1]);
         }

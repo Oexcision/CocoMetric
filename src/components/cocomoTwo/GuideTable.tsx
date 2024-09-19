@@ -122,25 +122,6 @@ const GuideTable = () => {
                         <Td></Td>
                     </Tr>
                     <Tr>
-                        <Td>RUSE</Td>
-                        <Td>Proyecto</Td>
-                        <Td>Ninguno</Td>
-                        <Td>Proyecto</Td>
-                        <Td>Programa</Td>
-                        <Td>Línea producto</Td>
-                        <Td>Múltiples líneas de productos</Td>
-                    </Tr>
-
-                    <Tr>
-                        <Td>DOC</Td>
-                        <Td>Muchas necesidades del ciclo de vida descubiertas</Td>
-                        <Td>Algunas necesidades del ciclo de vida descubiertas</Td>
-                        <Td>Tamaño correcto a las necesidades del ciclo de vida</Td>
-                        <Td>Excesivo para las necesidades del ciclo de vida</Td>
-                        <Td>Muy excesivo para las necesidades del ciclo de vida</Td>
-                        <Td></Td>
-                    </Tr>
-                    <Tr>
                         <Td>ESO</Td>
                         <Td>1 mes</Td>
                         <Td>4 meses</Td>
