@@ -32,6 +32,7 @@ const Cocomo = () => {
     const [estimationResult, setEstimationResult] = useState<CocomoOut | null>(null);
 
     const [isStagesEnabled, setIsStagesEnabled] = useState(false);
+    const [showStageResults, setShowStageResults] = useState(false);
     const resultSectionRef = useRef<HTMLDivElement>(null);
 
     const cpmModal = useDisclosure();
@@ -111,19 +112,30 @@ const Cocomo = () => {
     };
 
     const handleSwitchChange = () => {
-        setIsStagesEnabled(!isStagesEnabled);
-        if(!isStagesEnabled){
+        if (isStagesEnabled) {
+            setShowStageResults(false);
+            setStagePercentages({
+                requirements: 0,
+                analysis: 0,
+                design: 0,
+                development: 0,
+                testing: 0
+            });
+        } else {
             cpmModal.onOpen();
         }
+        setIsStagesEnabled(!isStagesEnabled);
     };
 
     // Función para manejar el cálculo del CPM y actualizar el estado en formData
     const handleCpmCalculation = (total: number, percentages: StagePercentages) => {
+        console.log('Percentages received:', percentages);
         setFormData((prevData) => ({
             ...prevData,
             cpm: total,
         }));
         setStagePercentages(percentages);
+        setShowStageResults(true); 
     };
 
     const handleModalSubmit = () => {
@@ -278,8 +290,25 @@ const Cocomo = () => {
                                         <Text fontStyle="italic"> Soles</Text>
                                     </HStack>
                                 </FormControl>
-                                {isStagesEnabled && (
+                                {(isStagesEnabled || showStageResults) && (
                                     <>
+                                        {/* Debug console logs */}
+                                        {console.log("=== DEBUG STAGE PERCENTAGES ===")}
+                                        {console.log("stagePercentages:", stagePercentages)}
+                                        {console.log("Total cost:", estimationResult.costo)}
+                                        {console.log("Requirements cost:", estimationResult.costo * stagePercentages.requirements)}
+                                        {console.log("Analysis cost:", estimationResult.costo * stagePercentages.analysis)}
+                                        {console.log("Design cost:", estimationResult.costo * stagePercentages.design)}
+                                        {console.log("Development cost:", estimationResult.costo * stagePercentages.development)}
+                                        {console.log("Testing cost:", estimationResult.costo * stagePercentages.testing)}
+                                        {console.log("Sum of all percentages:", 
+                                            stagePercentages.requirements + 
+                                            stagePercentages.analysis + 
+                                            stagePercentages.design + 
+                                            stagePercentages.development + 
+                                            stagePercentages.testing
+                                        )}
+                                        {console.log("================================")}
                                         <Text mt={4}>
                                             Note: Stage costs is valid only for sum of percentages = , otherwise it will give inconsistent results.
                                         </Text>

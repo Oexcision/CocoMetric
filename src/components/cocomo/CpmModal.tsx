@@ -6,12 +6,14 @@ import {
     ModalContent,
     ModalHeader,
     ModalOverlay,
+    ModalFooter,
     VStack,
     FormControl,
     FormLabel,
     Input,
     HStack,
     Checkbox,
+    Button,
 } from "@chakra-ui/react";
 
 import { StageType, StageValues, StagePercentages } from '../../client/models'
@@ -147,11 +149,14 @@ const CpmModal = ({ isOpen, onClose, onCalculate, onSubmit }: CpmModalProps) => 
                             ))}
                         </VStack>
                     </ModalBody>
-                    {/* <ModalFooter gap={3}>
+                    <ModalFooter gap={3}>
                         <Button type="submit" colorScheme="blue">
                             Calculate
                         </Button>
-                    </ModalFooter> */}
+                        <Button variant="ghost" onClick={onClose}>
+                            Cancel
+                        </Button>
+                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>
@@ -186,7 +191,7 @@ const RowWithCheckbox = ({
             <FormControl id={`${id}Percentage`} isDisabled={values.disabled}>
                 <FormLabel>{`${label} Percentage`}</FormLabel>
                 <Input
-                    placeholder="Example: %: 0.4 or Months: 4 or 4.8"
+                    placeholder="Example: %: 30 or Months: 4 or 4.8"
                     type="number"
                     value={values.percentage}
                     onChange={(e) => handlePercentageChange(e, id)}
